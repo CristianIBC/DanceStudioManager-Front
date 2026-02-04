@@ -1,0 +1,45 @@
+body {
+  cursor: default;
+  user-select: none;
+}
+
+input,
+textarea,
+table,
+.form-control,
+.form-select,
+[contenteditable="true"] {
+  user-select: text;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: auto !important;
+}
+
+.table-responsive {
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+.logo-pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.no-text-cursor {
+  cursor: default; /* flecha normal */
+  user-select: none; /* no se puede seleccionar */
+}

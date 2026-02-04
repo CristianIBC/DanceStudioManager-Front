@@ -1,0 +1,9 @@
+/* Quitar botón clear (X) del input date */
+input[type="date"]::-webkit-clear-button {
+  display: none;
+}
+
+/* Quitar icono interno del calendario si fuera necesario */
+input[type="date"]::-webkit-inner-spin-button {
+  display: none;
+}

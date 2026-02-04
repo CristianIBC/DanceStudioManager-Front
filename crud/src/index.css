@@ -1,0 +1,8 @@
+body {
+  cursor: default;
+}
+
+input,
+textarea {
+  cursor: text;
+}

@@ -1,0 +1,49 @@
+.animate-login {
+  animation: fadeSlide 0.8s ease-out;
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+.login-bg {
+  position: fixed;
+  inset: 0;
+
+  background-image: url("/fondo-rebelion.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btn-login-dark {
+  padding: 14px 32px;
+  background: #000;
+  color: #fff;
+  border: 1px solid #3b0000;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.btn-login-dark:hover {
+  background: #0d0d0d;
+  border-color: #ff0000;
+  box-shadow: 0 0 10px #ff000066;
+}
