@@ -185,7 +185,7 @@ export default function Paquetes() {
   const hanldeDeleteButton = async (paqueteBorrada: Paquete) => {
     const confirmed = await confirmDelete({
       title: "¿Eliminar paquete?",
-      text: `¿Estás seguro de eliminar a ${paqueteBorrada.nombre}?`,
+      text: `NOTA: Para que se pueda eliminar un paquete, ningún alumno debe estar relacionado a este`,
     });
     if (confirmed) {
       try {

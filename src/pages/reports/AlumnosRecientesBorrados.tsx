@@ -12,9 +12,8 @@ import { getSucursalId } from "../../helpers/sucursalHelper";
 import { showInfo } from "../../hooks/alerts/InfoAlert";
 
 export default function AlumnosRecientesBorrados() {
-  const [sucursalSeleccionada, setSucursalSeleccionada] = useState<number>(
-    getSucursalId()
-  );
+  const [sucursalSeleccionada, setSucursalSeleccionada] =
+    useState<number>(getSucursalId());
   if (sucursalSeleccionada == 0) {
     showInfo({
       title: "IMPORTANTE",
@@ -29,11 +28,11 @@ export default function AlumnosRecientesBorrados() {
     Alumno[] | undefined
   >([]);
   const [alumnosBorrados, setAlumnosBorrados] = useState<Alumno[] | undefined>(
-    []
+    [],
   );
   //Hook para Obtener sucursales ******************************************************************
   const { data: dataSucursales } = useFetch<Sucursal[]>(
-    URL.HOST + "/sucursales"
+    URL.HOST + "/sucursales",
   );
   const [sucursales, setSucursales] = useState<Sucursal[]>([]);
   useEffect(() => {
@@ -57,12 +56,12 @@ export default function AlumnosRecientesBorrados() {
     setSucursal(sucursalTemp);
 
     const resp = await api.get(
-      URL.HOST + `/alumnos/recientes/by-sucursal/${sucursalTemp.id}`
+      URL.HOST + `/alumnos/recientes/by-sucursal/${sucursalTemp.id}`,
     );
     setAlumnosRecientes(resp.data);
 
     const resp2 = await api.get(
-      URL.HOST + `/alumnos/inactivos/by-sucursal/${sucursalTemp.id}`
+      URL.HOST + `/alumnos/inactivos/by-sucursal/${sucursalTemp.id}`,
     );
     setAlumnosBorrados(resp2.data);
     closeLoading();
@@ -160,7 +159,12 @@ export default function AlumnosRecientesBorrados() {
                       key: "fechaDeCreacion",
                       header: "Fecha de Creación",
                     },
-                    { key: "estatus", header: "Estatus" },
+                    {
+                      key: "estatus",
+                      header: "Estatus",
+                      render: (alumno) =>
+                        alumno.estatus ? "Activo" : "Inactivo",
+                    },
                     {
                       key: "mensualidad",
                       header: "Mensualidad",
@@ -197,7 +201,12 @@ export default function AlumnosRecientesBorrados() {
                       key: "fechaDeCreacion",
                       header: "Fecha de Creación",
                     },
-                    { key: "estatus", header: "Estatus" },
+                    {
+                      key: "estatus",
+                      header: "Estatus",
+                      render: (alumno) =>
+                        alumno.estatus ? "Activo" : "Inactivo",
+                    },
                     {
                       key: "mensualidad",
                       header: "Mensualidad",

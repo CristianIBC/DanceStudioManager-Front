@@ -38,9 +38,10 @@ export default function Login() {
         localStorage.setItem("token", authResponse.token);
         localStorage.setItem("rol", authResponse.rol);
         localStorage.setItem("nombre", authResponse.nombre);
+        localStorage.setItem("id", String(authResponse.id));
         localStorage.setItem(
           "tokenExp",
-          String(Date.now() + 1_000 * 60 * 60 * 24)
+          String(Date.now() + 1_000 * 60 * 60 * 24),
         );
         const redirectPath = roleRedirect[authResponse.rol] || "/panel/home";
         navigate(redirectPath);

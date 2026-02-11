@@ -118,6 +118,7 @@ export default function Pagos() {
   );
   const alumnoOptions = alumnos?.map((a) => ({
     value: a.id,
+    correo: a.correo,
     label: `${a.nombre} ${a.apellido}`,
   }));
   const [alumnoSeleccionado1, setAlumnoSeleccionado1] = useState<any>(null);
@@ -163,36 +164,51 @@ export default function Pagos() {
         });
       }
       if (confirmed) {
-        //ENVIAR PAGO
-        const pago: Pago = {
-          cantidad: Number(cantidad),
-          mes: Number(mes.id),
-          alumno: alumno1,
-          fechaDePago: fechaDePago,
-          alumno2: alumno2 == undefined ? undefined : alumno2,
-          pagaEnPaquete: pagaEnPaquete,
-        };
-        try {
-          const nuevoPago = await post(pago);
-
-          if (nuevoPago.id != undefined && nuevoPago.id > 0) {
-            showSuccess({
-              title: "Exito",
-              message: "Pago agregado correctamente",
-            });
-            setPagos([nuevoPago, ...pagos]);
-          } else {
-            showError({
-              title: "Error",
-              message: "Algo salio mal",
-            });
-          }
-        } catch (err) {
-          console.error("Error al crear el pago:", err);
-          alert("Error al crear el pago");
+        let withEmail = true;
+        let continuar = true;
+        if (alumno1.correo == undefined) {
+          withEmail = false;
         }
-        handleCloseAdd();
-        cleanData();
+        if (!withEmail) {
+          continuar = await confirmDelete({
+            title: "¿Seguro?",
+            text: `Este alumno no tiene correo y no le llegará el comprobante digital`,
+            confirmButtonText: "Si, estoy seguro",
+            confirmButtonColor: "#198754",
+          });
+        }
+        //ENVIAR PAGO
+        if (continuar) {
+          const pago: Pago = {
+            cantidad: Number(cantidad),
+            mes: Number(mes.id),
+            alumno: alumno1,
+            fechaDePago: fechaDePago,
+            alumno2: alumno2 == undefined ? undefined : alumno2,
+            pagaEnPaquete: pagaEnPaquete,
+          };
+          try {
+            const nuevoPago = await post(pago);
+
+            if (nuevoPago.id != undefined && nuevoPago.id > 0) {
+              showSuccess({
+                title: "Exito",
+                message: "Pago agregado correctamente",
+              });
+              setPagos([nuevoPago, ...pagos]);
+            } else {
+              showError({
+                title: "Error",
+                message: "Algo salio mal",
+              });
+            }
+          } catch (err) {
+            console.error("Error al crear el pago:", err);
+            alert("Error al crear el pago");
+          }
+          handleCloseAdd();
+          cleanData();
+        }
       }
     }
   };
@@ -295,7 +311,11 @@ export default function Pagos() {
               options={alumnoOptions}
               value={alumnoSeleccionado1}
               onChange={(opcion) => {
-                setAlumno1(opcion ? { id: opcion.value } : undefined);
+                setAlumno1(
+                  opcion
+                    ? { id: opcion.value, correo: opcion.correo }
+                    : undefined,
+                );
                 setAlumnoSeleccionado1(opcion);
                 verifyPaquete(opcion ? opcion.value : undefined);
               }}

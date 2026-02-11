@@ -185,7 +185,7 @@ export default function Profesores() {
   const hanldeDeleteButton = async (profesorBorrado: Profesor) => {
     const confirmed = await confirmDelete({
       title: "¿Eliminar profesor?",
-      text: `¿Estás seguro de eliminar a ${profesorBorrado.nombre}?`,
+      text: `¿Estás seguro de eliminar a ${profesorBorrado.nombre}? IMPORTANTE: Los cursos asociados a este profesor quedarán sin asignar`,
     });
     if (confirmed) {
       try {

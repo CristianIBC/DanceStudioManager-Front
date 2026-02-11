@@ -206,7 +206,7 @@ export default function Sucursales() {
     }
   };
   const hanldeDeleteButton = async (sucursalBorrada: Sucursal) => {
-    if (sucursales.length == 5) {
+    if (sucursales.length == 1) {
       showError({
         title: "Error",
         message: "No te puedes quedar sin sucursales",
@@ -215,7 +215,7 @@ export default function Sucursales() {
     }
     const confirmed = await confirmDelete({
       title: "¿Eliminar sucursal?",
-      text: `¿Estás seguro de eliminar a ${sucursalBorrada.nombre}?`,
+      text: `¿Estás seguro de eliminar a ${sucursalBorrada.nombre}? IMPORTANTE: se borrarán TODOS los datos asociados a esta sucursal (Alumnos, Pagos, Cursos) `,
     });
     if (confirmed) {
       try {

@@ -363,7 +363,7 @@ export default function Cursos() {
   const hanldeDeleteButton = async (cursoBorrado: Curso) => {
     const confirmed = await confirmDelete({
       title: "¿Eliminar curso?",
-      text: `¿Estás seguro de eliminar a ${cursoBorrado.nombre}?`,
+      text: `¿Estás seguro de eliminar a ${cursoBorrado.nombre}? IMPORTANTE: Los alumnos que esten en este curso, se desvincularán del curso`,
     });
     if (confirmed) {
       try {

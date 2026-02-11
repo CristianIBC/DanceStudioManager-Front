@@ -73,7 +73,8 @@ export default function Usuarios() {
   const [usuarios, setUsuarios] = useState<Usuario[]>([]);
   useEffect(() => {
     if (data) {
-      setUsuarios(data);
+      const id = localStorage.getItem("id");
+      setUsuarios(data.filter((usuario) => usuario.id !== Number(id)));
     }
   }, [data]);
 
