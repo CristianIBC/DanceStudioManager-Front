@@ -173,7 +173,7 @@ export default function ReporteSucursal() {
                     {ingresos > 0 ? ingresos : 0}
                   </div>
                   <div className="col-md-4">
-                    <strong>Alumnos activos:</strong>
+                    <strong>Alumnos activos: </strong>
                     {alumnos.length}
                   </div>
                 </div>
