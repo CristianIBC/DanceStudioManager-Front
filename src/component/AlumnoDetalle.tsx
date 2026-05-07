@@ -5,15 +5,27 @@ type AlumnoDetalleProps = {
 };
 
 const AlumnoDetalle: React.FC<AlumnoDetalleProps> = ({ alumno }) => {
+  console.log(alumno);
   return (
     <div className="card shadow-sm">
       <div className="card-header">
-        <h5 className="mb-0">Información del Alumno</h5>
+        <div className="row">
+          <div className="col">
+            {" "}
+            <h4 className="mb-0">Información del Alumno</h4>{" "}
+          </div>
+          <div className="col">
+            <p>
+              <strong>Estatus:</strong>{" "}
+              {alumno?.estatus ? "ACTIVO" : "INACTIVO"}
+            </p>
+          </div>
+        </div>
       </div>
 
       <div className="card-body">
         <div className="row">
-          <div className="col">
+          <div className="col-md-6">
             {" "}
             <p>
               <strong>ID:</strong> {alumno?.id}
@@ -51,8 +63,7 @@ const AlumnoDetalle: React.FC<AlumnoDetalleProps> = ({ alumno }) => {
               <strong>Correo:</strong> {alumno?.correo ?? "No registrado"}
             </p>
             <p>
-              <strong>Estatus:</strong>{" "}
-              {alumno?.estatus ? "Activo" : "Inactivo"}
+              <strong>Instagram:</strong> {alumno?.instagram ?? "No registrado"}
             </p>
           </div>
         </div>

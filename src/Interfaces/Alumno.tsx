@@ -16,4 +16,5 @@ export interface Alumno {
   paqueteId?: number;
   paqueteNombre?: string;
   correo?: string;
+  instagram?: string;
 }

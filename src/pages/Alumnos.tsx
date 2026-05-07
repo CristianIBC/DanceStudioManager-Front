@@ -41,6 +41,7 @@ export default function Alumnos() {
   const [apellido, setApellido] = useState<string | undefined>("");
   const [telefono, setTelefono] = useState<string | undefined>("");
   const [correo, setCorreo] = useState<string | undefined>("");
+  const [instagram, setInstagram] = useState<string | undefined>("");
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const [correoError, setCorreoError] = useState("");
   const [correoValid, setCorreoValid] = useState(true);
@@ -216,6 +217,7 @@ export default function Alumnos() {
     setCorreo("");
     setCorreoError("");
     setCorreoValid(true);
+    setInstagram("");
   };
   const handleCorreoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -291,7 +293,8 @@ export default function Alumnos() {
               diaDePago: diaDePago.id,
               mensualidad: Number(mensualidad),
               paqueteId: paqueteId,
-              correo: correo,
+              correo: correo == "" ? undefined : correo,
+              instagram: instagram == "" ? undefined : instagram,
             };
             try {
               const nuevoAlumno = await post(alumno);
@@ -370,7 +373,8 @@ export default function Alumnos() {
               diaDePago: diaDePago.id,
               mensualidad: Number(mensualidad),
               paqueteId: paqueteId,
-              correo: correo,
+              correo: correo == "" ? undefined : correo,
+              instagram: instagram == "" ? undefined : instagram,
               id: id,
             };
             try {
@@ -390,6 +394,7 @@ export default function Alumnos() {
                 paqueteNombre: alumnoEditado.paqueteNombre,
                 estatus: alumnoEditado.estatus,
                 correo: alumnoEditado.correo,
+                instagram: alumnoEditado.instagram,
               };
               if (alumno.sucursalId == sucursalSeleccionada) {
                 setAlumnos((prev) =>
@@ -502,6 +507,7 @@ export default function Alumnos() {
     setSucursalId(alumnoEditado.sucursalId);
     setMensualidad(String(alumnoEditado.mensualidad));
     setCorreo(alumnoEditado.correo ?? "");
+    setInstagram(alumnoEditado.instagram ?? "");
     const sucursalActual: Sucursal = {
       id: alumnoEditado.sucursalId,
       nombre: alumnoEditado.sucursalNombre,
@@ -722,6 +728,7 @@ export default function Alumnos() {
         isOpen={showAddModal}
         onClose={handleCloseAdd}
         title={"Agregar alumno"}
+        size="lg"
       >
         <div className="modal-body">
           <div className="row">
@@ -763,14 +770,12 @@ export default function Alumnos() {
               />
             </div>
             <div className="col">
-              <label className="form-label fw-bold">
-                Descuento <span className="text-danger">*</span>
-              </label>
+              <label className="form-label fw-bold">Instagram</label>
               <input
                 className="form-control mb-2"
-                placeholder="Descuento"
-                value={descuento}
-                onChange={(e) => setDescuento(e.target.value)}
+                placeholder="Instagram"
+                value={instagram}
+                onChange={(e) => setInstagram(e.target.value)}
               />
             </div>
           </div>
@@ -789,34 +794,51 @@ export default function Alumnos() {
                 <div className="invalid-feedback d-block">{correoError}</div>
               )}
             </div>
+            <div className="col">
+              {" "}
+              <label className="form-label fw-bold">
+                Descuento <span className="text-danger">*</span>
+              </label>
+              <input
+                className="form-control mb-2"
+                placeholder="Descuento"
+                value={descuento}
+                onChange={(e) => setDescuento(e.target.value)}
+              />
+            </div>
           </div>
-          <label className="form-label fw-bold">
-            Selecciona la sucursal <span className="text-danger">*</span>
-          </label>
-          <Dropdown
-            items={sucursales}
-            getKey={(s) => s.id}
-            getLabel={(s) => s.nombre}
-            placeholder="Sucursales"
-            onSelect={(sucursal) => setSucursalId(sucursal.id)}
-            value={sucursal}
-          />
-          <br />
-          <label className="form-label fw-bold">
-            Selecciona el día límite de pago{" "}
-            <span className="text-danger">*</span>
-          </label>
-          <Dropdown
-            items={diasDelMes}
-            getKey={(s) => s.id}
-            getLabel={(s) => s.nombre}
-            placeholder="Selecciona el dia de pago"
-            onSelect={(dia) => setDiaDePago(dia)}
-            value={diaDePago}
-          />
-          <br />
+          <div className="row" style={{ marginTop: "20px" }}>
+            <div className="col">
+              {" "}
+              <label className="form-label fw-bold">
+                Selecciona el día límite de pago{" "}
+                <span className="text-danger">*</span>
+              </label>
+              <Dropdown
+                items={diasDelMes}
+                getKey={(s) => s.id}
+                getLabel={(s) => s.nombre}
+                placeholder="Selecciona el dia de pago"
+                onSelect={(dia) => setDiaDePago(dia)}
+                value={diaDePago}
+              />
+            </div>
+            <div className="col">
+              <label className="form-label fw-bold">
+                Selecciona la sucursal <span className="text-danger">*</span>
+              </label>
+              <Dropdown
+                items={sucursales}
+                getKey={(s) => s.id}
+                getLabel={(s) => s.nombre}
+                placeholder="Sucursales"
+                onSelect={(sucursal) => setSucursalId(sucursal.id)}
+                value={sucursal}
+              />
+            </div>
+          </div>
           <div className="row">
-            <div className="col-md-8">
+            <div className="col-md-6">
               <label className="form-label fw-bold">
                 Selecciona el paquete <span className="text-danger">*</span>
               </label>
@@ -860,6 +882,7 @@ export default function Alumnos() {
         isOpen={showEditModal}
         onClose={handleCloseEdit}
         title={"Editar alumno"}
+        size="lg"
       >
         <div className="modal-body">
           <div className="row">
@@ -897,14 +920,12 @@ export default function Alumnos() {
               />
             </div>
             <div className="col">
-              <label className="form-label fw-bold">
-                Descuento <span className="text-danger">*</span>
-              </label>
+              <label className="form-label fw-bold">Instagram</label>
               <input
                 className="form-control mb-2"
-                placeholder="Descuento"
-                value={descuento}
-                onChange={(e) => setDescuento(e.target.value)}
+                placeholder="Instagram"
+                value={instagram}
+                onChange={(e) => setInstagram(e.target.value)}
               />
             </div>
           </div>
@@ -922,34 +943,51 @@ export default function Alumnos() {
                 <div className="invalid-feedback d-block">{correoError}</div>
               )}
             </div>
+            <div className="col">
+              <label className="form-label fw-bold">
+                Descuento <span className="text-danger">*</span>
+              </label>
+              <input
+                className="form-control mb-2"
+                placeholder="Descuento"
+                value={descuento}
+                onChange={(e) => setDescuento(e.target.value)}
+              />
+            </div>
           </div>
-          <label className="form-label fw-bold">
-            Selecciona la sucursal <span className="text-danger">*</span>
-          </label>
-          <Dropdown
-            items={sucursales}
-            getKey={(s) => s.id}
-            getLabel={(s) => s.nombre}
-            placeholder="Sucursales"
-            onSelect={(sucursal) => setSucursalId(sucursal.id)}
-            value={sucursal}
-          />
-          <br />
-          <label className="form-label fw-bold">
-            Selecciona el día límite de pago{" "}
-            <span className="text-danger">*</span>
-          </label>
-          <Dropdown
-            items={diasDelMes}
-            getKey={(s) => s.id}
-            getLabel={(s) => s.nombre}
-            placeholder="Selecciona el dia de pago"
-            onSelect={(dia) => setDiaDePago(dia)}
-            value={diaDePago}
-          />
-          <br />
+          <div className="row" style={{ marginTop: "20px" }}>
+            <div className="col">
+              {" "}
+              <label className="form-label fw-bold">
+                Selecciona el día límite de pago{" "}
+                <span className="text-danger">*</span>
+              </label>
+              <Dropdown
+                items={diasDelMes}
+                getKey={(s) => s.id}
+                getLabel={(s) => s.nombre}
+                placeholder="Selecciona el dia de pago"
+                onSelect={(dia) => setDiaDePago(dia)}
+                value={diaDePago}
+              />
+            </div>
+            <div className="col">
+              {" "}
+              <label className="form-label fw-bold">
+                Selecciona la sucursal <span className="text-danger">*</span>
+              </label>
+              <Dropdown
+                items={sucursales}
+                getKey={(s) => s.id}
+                getLabel={(s) => s.nombre}
+                placeholder="Sucursales"
+                onSelect={(sucursal) => setSucursalId(sucursal.id)}
+                value={sucursal}
+              />
+            </div>
+          </div>
           <div className="row">
-            <div className="col-md-8">
+            <div className="col-md-6">
               <label className="form-label fw-bold">
                 Selecciona el paquete <span className="text-danger">*</span>
               </label>

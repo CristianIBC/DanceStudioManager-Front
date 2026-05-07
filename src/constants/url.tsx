@@ -1,3 +1,3 @@
 export const URL = {
-  HOST: "http://localhost:4000",
+  HOST: "http://192.168.1.76:4000",
 } as const;
