@@ -18,14 +18,12 @@ import { URL } from "../constants/url";
 import type { Mes } from "../Interfaces/Mes";
 import { getSucursalId } from "../helpers/sucursalHelper";
 import { showInfo } from "../hooks/alerts/InfoAlert";
-import { title } from "framer-motion/client";
 export default function Pagos() {
   const url = URL.HOST + "/pagos";
   //Variables para mostrar los modales *******************************************************
   const [showAddModal, setShowAddModal] = useState<boolean>(false);
 
   //Variables de la interfaz *****************************************************************
-  const [id, setId] = useState<number | undefined>(undefined);
   const [fechaDePago, setFechaDePago] = useState<string>("");
   const [alumno1, setAlumno1] = useState<Alumno>();
   const [alumno2, setAlumno2] = useState<Alumno>();
@@ -88,20 +86,16 @@ export default function Pagos() {
     setAlumno1(undefined);
     setAlumno2(undefined);
     setAlumnoSeleccionado1(undefined);
-    setAlumnoSeleccionado2(undefined);
     setCantidad("");
     setMes(undefined);
     setFechaDePago("");
     setPagaEnPaquete(false);
-    setId(undefined);
     setPaqueteNombre("");
     setMensualidad("");
   };
   // Hook para obtener todos los pagos (GET) ***************************************************
   const {
-    data,
-    loading: loadingGet,
-    error: errorGet,
+    data
   } = useFetch<Pago[]>(url + `/by-sucursal/${sucursalSeleccionada}`);
   const [pagos, setPagos] = useState<Pago[]>([]);
   useEffect(() => {
@@ -122,11 +116,10 @@ export default function Pagos() {
     label: `${a.nombre} ${a.apellido}`,
   }));
   const [alumnoSeleccionado1, setAlumnoSeleccionado1] = useState<any>(null);
-  const [alumnoSeleccionado2, setAlumnoSeleccionado2] = useState<any>(null);
   //Variable para actualizar la data con base en la busqueda ***************************************
   const dataFiltrada = filtrarDatos(pagos, search);
   // Hook para crear pago (POST) ****************************************************************
-  const { post, loading: loadingPost, error: errorPost } = usePost<Pago>(url);
+  const { post } = usePost<Pago>(url);
   // Hook para elimminar pago DELETE ************************************************************
   const { deleteRecord } = useDelete({
     endpoint: url,
@@ -279,8 +272,9 @@ export default function Pagos() {
   };
 
   const handleChangeFecha = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+    const { value } = e.target;
     setFechaDePago(value);
+
   };
   // HTML *******************************************************************************************
   return (

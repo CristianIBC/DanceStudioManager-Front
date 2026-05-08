@@ -56,9 +56,7 @@ export default function Profesores() {
   };
   // Hook para obtener todos los profesores (GET) ***************************************************
   const {
-    data,
-    loading: loadingGet,
-    error: errorGet,
+    data
   } = useFetch<Profesor[]>(url);
   const [profesores, setProfesores] = useState<Profesor[]>([]);
   useEffect(() => {
@@ -71,9 +69,7 @@ export default function Profesores() {
   const dataFiltrada = filtrarDatos(profesores, search);
   // Hook para crear profesor (POST) ****************************************************************
   const {
-    post,
-    loading: loadingPost,
-    error: errorPost,
+    post
   } = usePost<Profesor>(url);
 
   // Hook para elimminar profesor DELETE ************************************************************
@@ -84,7 +80,7 @@ export default function Profesores() {
 
   // Hook para actualizar prfesor PUT **************************************************************
 
-  const { update, loading } = useUpdate<Profesor, Profesor>(url, {
+  const { update } = useUpdate<Profesor, Profesor>(url, {
     onSuccess: () =>
       showSuccess({
         message: "Profesor actualizado correctamente",

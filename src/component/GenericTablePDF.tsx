@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 
 type Column<T> = {
   key: keyof T;
@@ -48,7 +47,6 @@ export function GenericTablePDF<T>({
   ]
     .join(" ")
     .trim();
-  const [currentPage, setCurrentPage] = useState(1);
 
   return (
     <>

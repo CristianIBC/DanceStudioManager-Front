@@ -58,9 +58,7 @@ export default function Paquetes() {
   };
   // Hook para obtener todos los profesores (GET) ***************************************************
   const {
-    data,
-    loading: loadingGet,
-    error: errorGet,
+    data
   } = useFetch<Paquete[]>(url);
   const [paquetes, setPaquetes] = useState<Paquete[]>([]);
   useEffect(() => {
@@ -72,9 +70,7 @@ export default function Paquetes() {
   const dataFiltrada = filtrarDatos(paquetes, search);
 
   const {
-    post,
-    loading: loadingPost,
-    error: errorPost,
+    post
   } = usePost<Paquete>(url);
 
   const { deleteRecord } = useDelete({
@@ -82,7 +78,7 @@ export default function Paquetes() {
   });
   const { confirmDelete } = DeleteAlert();
 
-  const { update, loading } = useUpdate<Paquete, Paquete>(url, {
+  const { update } = useUpdate<Paquete, Paquete>(url, {
     onSuccess: () =>
       showSuccess({
         message: "Paquete actualizado correctamente",

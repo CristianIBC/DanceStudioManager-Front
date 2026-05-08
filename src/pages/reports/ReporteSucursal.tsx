@@ -38,9 +38,7 @@ export default function ReporteSucursal() {
   }, [dataSucursales]);
   // Hook para obtener todos los alumnos (GET) ***************************************************
   const {
-    data,
-    loading: loadingGet,
-    error: errorGet,
+    data
   } = useFetch<Alumno[]>(
     URL.HOST + `/alumnos/by-sucursal/${sucursalSeleccionada}`,
   );

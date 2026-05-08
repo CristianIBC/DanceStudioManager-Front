@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { URL } from "../constants/url";
 import type { AuthResponse } from "../Interfaces/AuthResponse";
 import { showError } from "../hooks/alerts/ErrorAlert";

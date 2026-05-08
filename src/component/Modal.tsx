@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 // Interfaz para las props del Modal
 interface ModalProps {

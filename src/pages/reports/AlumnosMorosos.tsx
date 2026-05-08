@@ -3,7 +3,6 @@ import { URL } from "../../constants/url";
 import type { PagoRealizado } from "../../Interfaces/PagoRealizado";
 import useFetch from "../../hooks/useFetch";
 import api from "../../hooks/api";
-import type { Alumno } from "../../Interfaces/Alumno";
 import { useRef } from "react";
 import html2pdf from "html2pdf.js";
 import type { Moroso } from "../../Interfaces/Moroso";
@@ -16,10 +15,8 @@ import { getSucursalId } from "../../helpers/sucursalHelper";
 
 export default function AlumnosMorosos() {
   const url = URL.HOST + "/pagos/realizados";
-  const [alumnos, setAlumnos] = useState<Alumno[]>([]);
   const [sucursal, setSucursal] = useState<Sucursal | undefined>({});
   const [generar, setGenerar] = useState(false);
-  const [pagos, setPagos] = useState<PagoRealizado[]>([]);
   const [morosos, setMorosos] = useState<Moroso[]>([]);
   const anioActual = new Date().getFullYear();
   const [anioSeleccionado, setAnioSeleccionado] = useState(anioActual);
@@ -107,7 +104,6 @@ export default function AlumnosMorosos() {
       });
       setMorosos([]);
     } else {
-      setPagos(pagosAgrupados);
       getAlumnos(pagosAgrupados);
     }
     setGenerar(true);
@@ -120,7 +116,6 @@ export default function AlumnosMorosos() {
         `/alumnos/sucursal/${sucursalSeleccionada}/${mesSeleccionado}/${anioSeleccionado}`
     );
     if (resp.status == 200) {
-      setAlumnos(resp.data);
       for (let i = 0; i < resp.data.length; i++) {
         const alumno = resp.data[i];
         let yaPago = false;

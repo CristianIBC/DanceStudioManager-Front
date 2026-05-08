@@ -66,9 +66,7 @@ export default function Usuarios() {
 
   // Hook para obtener todos los usuarios (GET) ***************************************************
   const {
-    data,
-    loading: loadingGet,
-    error: errorGet,
+    data
   } = useFetch<Usuario[]>(url);
   const [usuarios, setUsuarios] = useState<Usuario[]>([]);
   useEffect(() => {
@@ -82,9 +80,7 @@ export default function Usuarios() {
   const dataFiltrada = filtrarDatos(usuarios, search);
   // Hook para crear profesor (POST) ****************************************************************
   const {
-    post,
-    loading: loadingPost,
-    error: errorPost,
+    post
   } = usePost<Usuario>(url);
 
   // Hook para elimminar profesor DELETE ************************************************************
@@ -94,7 +90,7 @@ export default function Usuarios() {
   const { confirmDelete } = DeleteAlert();
   // Hook para actualizar prfesor PUT **************************************************************
 
-  const { update, loading } = useUpdate<Usuario, Usuario>(url, {
+  const { update } = useUpdate<Usuario, Usuario>(url, {
     onSuccess: () =>
       showSuccess({
         message: "Usuario actualizado correctamente",

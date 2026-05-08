@@ -5,7 +5,6 @@ import useFetch from "../../hooks/useFetch";
 import GraficaIngresos from "../../component/GraficaIngresos";
 import { showInfo } from "../../hooks/alerts/InfoAlert";
 import type { Sucursal } from "../../Interfaces/Sucursal";
-import api from "../../hooks/api";
 import { getSucursalId } from "../../helpers/sucursalHelper";
 export default function ReporteIngresos() {
   const url = URL.HOST + "/pagos/reporte-ingresos";

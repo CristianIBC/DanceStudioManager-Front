@@ -66,9 +66,7 @@ export default function Sucursales() {
 
   // Hook para obtener todos los profesores (GET) ***************************************************
   const {
-    data,
-    loading: loadingGet,
-    error: errorGet,
+    data
   } = useFetch<Sucursal[]>(url);
   const [sucursales, setSucursales] = useState<Sucursal[]>([]);
   useEffect(() => {
@@ -80,9 +78,7 @@ export default function Sucursales() {
   const dataFiltrada = filtrarDatos(sucursales, search);
   // Hook para crear profesor (POST) ****************************************************************
   const {
-    post,
-    loading: loadingPost,
-    error: errorPost,
+    post
   } = usePost<Sucursal>(url);
   // Hook para elimminar profesor DELETE ************************************************************
   const { deleteRecord } = useDelete({
@@ -91,7 +87,7 @@ export default function Sucursales() {
   const { confirmDelete } = DeleteAlert();
   // Hook para actualizar prfesor PUT **************************************************************
 
-  const { update, loading } = useUpdate<Sucursal, Sucursal>(url, {
+  const { update } = useUpdate<Sucursal, Sucursal>(url, {
     onSuccess: () =>
       showSuccess({
         message: "Sucursal actualizada correctamente",

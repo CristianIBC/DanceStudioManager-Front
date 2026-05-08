@@ -2,7 +2,7 @@ import html2pdf from "html2pdf.js";
 import { URL } from "../../constants/url";
 import useFetch from "../../hooks/useFetch";
 import { showError } from "../../hooks/alerts/ErrorAlert";
-import { Fragment, useEffect, useRef, useState } from "react";
+import {  useEffect, useRef, useState } from "react";
 import type { Sucursal } from "../../Interfaces/Sucursal";
 import type { Alumno } from "../../Interfaces/Alumno";
 import { GenericTablePDF } from "../../component/GenericTablePDF";

@@ -1,10 +1,8 @@
-import { useState } from "react";
 import type { Alumno } from "../Interfaces/Alumno";
 import type { Curso } from "../Interfaces/Curso";
 import type { AlumnoCursos } from "../Interfaces/AlumnoCursos";
 import { URL } from "../constants/url";
 import useFetch from "../hooks/useFetch";
-import type Alumnos from "../pages/Alumnos";
 import { GenericTablePDF } from "./GenericTablePDF";
 
 type CursonDetalleProps = {
@@ -19,9 +17,7 @@ const CardCursoSucursal: React.FC<CursonDetalleProps> = ({ curso, index }) => {
     );
   }
   const {
-    data,
-    loading: loadingGet,
-    error: errorGet,
+    data
   } = useFetch<AlumnoCursos>(url);
 
   return (

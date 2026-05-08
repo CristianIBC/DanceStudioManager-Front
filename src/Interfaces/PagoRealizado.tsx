@@ -1,4 +1,3 @@
-import type { Alumno } from "./Alumno";
 
 export interface PagoRealizado {
   id?: number;

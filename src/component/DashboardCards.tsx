@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import "../styles/Dashborad.css";
-import { MdWarning } from "react-icons/md";
 import {
   FaChartLine,
   FaClipboardList,

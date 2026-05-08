@@ -12,7 +12,6 @@ import { GenericTable } from "../component/GenericTable";
 import type { Curso } from "../Interfaces/Curso";
 import type { AlumnoCursos } from "../Interfaces/AlumnoCursos";
 import SearchBar from "../component/SearchBar";
-import type { AlumnoCurso } from "../Interfaces/AlumnoCurso";
 import type { Alumno } from "../Interfaces/Alumno";
 import { Dropdown } from "../component/Dropdown";
 import CursoDetalle from "../component/CursoDetalle";
@@ -41,14 +40,9 @@ export default function Cursos() {
   //   const [fechaDeCreacion, setFechaDeCreacion] = useState<string | undefined>(
   //     ""
   //   );
-  const [profesorId, setProfesorId] = useState<number | undefined>();
-  const [profesorNombre, setProfesorNombre] = useState<string>("");
+
   const [profesor, setProfesor] = useState<Profesor>();
-  const [sucursalId, setSucursalId] = useState<number | undefined>();
-  const [sucursalNombre, setSucursalNombre] = useState<string>("");
-  const [sucursal, setSucursal] = useState<Sucursal>();
   const [dias, setDias] = useState<string | undefined>("");
-  const [alumnoCursos, setAlumnoCursos] = useState<AlumnoCurso[]>([]);
   //Varibales para visualizar los detalles del curso ****************************************
   const [cursoView, setCursoView] = useState<Curso>();
   const [alumnos, setAlumnos] = useState<Alumno[]>([]);
@@ -90,23 +84,13 @@ export default function Cursos() {
     setDias("");
     setPm(true);
     setCosto("");
-    setAlumnoCursos([]);
     setId(undefined);
-    setProfesorId(undefined);
-    setProfesorNombre("");
-    setProfesorId(undefined);
-    setProfesorNombre("");
     setProfesor({});
-    setSucursalId(undefined);
-    setSucursalNombre("");
-    setSucursal({});
   };
 
   // Hook para obtener todos los cursos (GET) ***************************************************
   const {
-    data,
-    loading: loadingGet,
-    error: errorGet,
+    data
   } = useFetch<Curso[]>(url + `/by-sucursal/${sucursalSeleccionada}`);
   const [cursos, setCursos] = useState<Curso[]>([]);
   useEffect(() => {
@@ -136,7 +120,7 @@ export default function Cursos() {
     if (dataSucursales) setSucursales(dataSucursales);
   }, [dataSucursales]);
   // Hook para crear alumno (POST) ****************************************************************
-  const { post, loading: loadingPost, error: errorPost } = usePost<Curso>(url);
+  const { post } = usePost<Curso>(url);
 
   // Hook para elimminar alumno DELETE ************************************************************
   const { deleteRecord } = useDelete({
@@ -145,7 +129,7 @@ export default function Cursos() {
   const { confirmDelete } = DeleteAlert();
   // Hook para actualizar alumno PUT **************************************************************
 
-  const { update, loading } = useUpdate<Curso, Curso>(url, {
+  const { update } = useUpdate<Curso, Curso>(url, {
     onSuccess: () =>
       showSuccess({
         message: "Curso Actualizado correctamente",
@@ -326,10 +310,6 @@ export default function Cursos() {
     setProfesor({
       id: cursoEditado.profesorId,
       nombre: cursoEditado.profesorNombre,
-    });
-    setSucursal({
-      id: cursoEditado.sucursalId,
-      nombre: cursoEditado.sucursalNombre,
     });
   };
   const handleViewButton = async (cursoView: Curso) => {

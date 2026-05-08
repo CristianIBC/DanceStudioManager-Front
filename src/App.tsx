@@ -5,8 +5,6 @@ import Panel from "./pages/Panel";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import Alumnos from "./pages/Alumnos";
-import NavBar from "./component/NavBar";
-import Sidebar2 from "./component/SideBar2";
 import Cursos from "./pages/Cursos";
 import Profesores from "./pages/Profesores";
 import Sucursales from "./pages/Sucursales";

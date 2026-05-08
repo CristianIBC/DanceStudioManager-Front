@@ -45,7 +45,6 @@ export default function Alumnos() {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const [correoError, setCorreoError] = useState("");
   const [correoValid, setCorreoValid] = useState(true);
-  const [sucursalNombre, setSucursalNombre] = useState<string | undefined>("");
   const [sucursal, setSucursal] = useState<Sucursal | undefined>(undefined);
   const [sucursalSeleccionada, setSucursalSeleccionada] =
     useState<number>(getSucursalId()); // Esta variable maneja el select principal de las sucursales
@@ -61,9 +60,6 @@ export default function Alumnos() {
     useState<number>(1);
   const [descuento, setDescuento] = useState<string>("0");
   const [id, setId] = useState<number | undefined>(undefined);
-  const [fechaDeCreacion, setFechaDeCreacion] = useState<string | undefined>(
-    undefined,
-  );
   const [sucursalId, setSucursalId] = useState<number>();
   const [paqueteId, setPaqueteId] = useState<number>();
   const [paquete, setPaquete] = useState<Paquete | undefined>(undefined);
@@ -134,9 +130,7 @@ export default function Alumnos() {
   const [search, setSearch] = useState("");
   // Hook para obtener todos los alumnos (GET) ***************************************************
   const {
-    data,
-    loading: loadingGet,
-    error: errorGet,
+    data
   } = useFetch<Alumno[]>(url + `/by-sucursal/${sucursalSeleccionada}`);
 
   const [alumnos, setAlumnos] = useState<Alumno[]>([]);
@@ -176,7 +170,7 @@ export default function Alumnos() {
   }, [dataPaquetes]);
 
   // Hook para crear alumno (POST) ****************************************************************
-  const { post, loading: loadingPost, error: errorPost } = usePost<Alumno>(url);
+  const { post } = usePost<Alumno>(url);
 
   // Hook para inscribir cursos (POST) ****************************************************************
   const { post: postInscribir } = usePost<string>(url + "/inscribir-cursos");
@@ -191,7 +185,7 @@ export default function Alumnos() {
 
   // Hook para actualizar alumno PUT **************************************************************
 
-  const { update, loading } = useUpdate<Alumno, Alumno>(url, {
+  const { update } = useUpdate<Alumno, Alumno>(url, {
     onSuccess: () =>
       showSuccess({
         message: "Alumno Actualizado correctamente",
@@ -204,10 +198,8 @@ export default function Alumnos() {
     setNombre("");
     setApellido("");
     setTelefono(undefined);
-    setSucursalNombre("");
     setDescuento("0");
     setId(undefined);
-    setFechaDeCreacion(undefined);
     setSucursalId(undefined);
     setSucursal({});
     setDiaDePago({ id: 1, nombre: "1" });
@@ -500,10 +492,8 @@ export default function Alumnos() {
     setNombre(alumnoEditado.nombre);
     setApellido(alumnoEditado.apellido);
     setTelefono(String(alumnoEditado.telefono ?? ""));
-    setSucursalNombre(alumnoEditado.sucursalNombre);
     setDescuento(String(alumnoEditado.descuento));
     setId(alumnoEditado.id);
-    setFechaDeCreacion(alumnoEditado.fechaDeCreacion);
     setSucursalId(alumnoEditado.sucursalId);
     setMensualidad(String(alumnoEditado.mensualidad));
     setCorreo(alumnoEditado.correo ?? "");
